@@ -21,11 +21,16 @@ function getMovieJson(url){
       } else {
         // make Movie obj and add it as value to movieDatabase
         movieDatabase[curMovie.title] = new Movie(curMovie)
-        movieDetails(curMovie.title)
       }
     }
-    return movieDatabase;
-    //return promise.all
+    // will allow me to modify my movieDatabase to include poster and plot details
+    let movieDetailsPromises = [];
+    for (let title in movieDatabase) {
+      let p = movieDetails(title);
+      movieDetailsPromises.push(p);
+    }
+    console.log(movieDetailsPromises);
+    return movieDetailsPromises;
   })
   .catch(function(err){
     console.log(err);
