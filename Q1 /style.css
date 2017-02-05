@@ -1,3 +1,8 @@
+body {
+  background-image: url("background.png");
+  /*background-position: 0 100%*/
+  background-repeat: repeat;
+}
 .red-text {
   margin-left: 30px;
 }
