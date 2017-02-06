@@ -1,6 +1,7 @@
 function Movie(jsonMovieObj){
   this.title = jsonMovieObj.title;
   this.locations = [jsonMovieObj.locations];
+  this.year = jsonMovieObj.release_year;
 }
 
 let url = "https://data.sfgov.org/resource/wwmu-gmzc.json";
@@ -27,7 +28,7 @@ function getMovieJson(url){
       let p = movieDetails(title);
       movieDetailsPromises.push(p)
     }
-    // console.log(movieDetailsPromises);
+    // console.log(movieDatabase);
     return movieDatabase
   })
   .catch(function(err){
@@ -39,10 +40,11 @@ getMovieJson(url)
 // grab movie poster and plot
 function movieDetails(title){
   let promises = [];
-  let omdbApi = fetch (`http://omdbapi.com/?s=${title}`)
-  console.log(omdbApi);
-  promises.push(omdbApi)
-  // console.log(omdbApi)
+  let tmdbApi = fetch (`https://api.themoviedb.org/3/search/movie?api_key=34b3926a105a04d03e0bc0b058163991&query=${title}&page=1&include_adult=false`);
+  // &year=${title.year}`
+  // console.log(tmdbApi);
+  promises.push(tmdbApi)
+  // console.log(tmdbApi)
   return Promise.all(promises)
   .then(function(movieResponse){
     // console.log(movieResponse)
